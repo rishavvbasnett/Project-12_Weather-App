@@ -1,0 +1,25 @@
+:root {
+  --gradient: linear-gradient(135deg, #d3e1ef 0%, #e8eff6 50%, #d8e5f2 100%);
+  --font:
+    -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial,
+    sans-serif;
+  --button-color: #1f9eed;
+  --button-color-hover: #1f9eede0;
+  --card-bg: rgba(255, 255, 255, 0.65);
+}
+
+body {
+  min-height: 100vh;
+  margin: 0;
+  background: var(--gradient);
+}
+
+.content {
+  max-width: 500px;
+  margin: 0 auto;
+}
+
+.weather {
+  min-height: 500px;
+  border: 1px solid black;
+}
