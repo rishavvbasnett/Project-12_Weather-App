@@ -1,7 +1,7 @@
 {
-  "name": "frontend-template",
+  "name": "project-12_weather-app",
   "version": "1.0.0",
-  "description": "Reusable frontend template with Webpack, assets handling and GitHub Pages deployment",
+  "description": "12th Project from The Odin Project; from the JS section of the Full-Stack JS path",
   "main": "webpack.config.js",
   "scripts": {
     "start": "webpack serve --mode development",
