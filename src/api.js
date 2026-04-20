@@ -1,5 +1,5 @@
 async function getWeather(location, unit) {
-  const apiKey = "Y9WB9BACAZDAR3R93WGUJ23ZP";
+  const apiKey = "KK4V3MCSUD6VQV7VRW69UJABW";
   const baseUrl =
     "https://weather.visualcrossing.com/VisualCrossingWebServices/rest/services/timeline/";
   const fullUrl = `${baseUrl}${location}?key=${apiKey}&unitGroup=${unit}`;

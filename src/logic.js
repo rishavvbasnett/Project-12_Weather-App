@@ -35,10 +35,15 @@ function getUnit() {
 }
 
 function toggleUnit() {
+  const toggleUnitButton = document.querySelector(".toggleUnitBtn");
+  console.log(toggleUnitButton);
   if (unit === "us") {
     unit = "metric";
+    toggleUnitButton.textContent = "UK";
   } else if (unit === "metric") {
     unit = "us";
+    toggleUnitButton.textContent = "US";
   }
 }
+
 export { extractState, toggleUnit, getUnit };

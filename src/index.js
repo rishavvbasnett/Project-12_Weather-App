@@ -1,7 +1,7 @@
 import "./reset.css";
 import "./styles.css";
 import { getWeather } from "./api";
-import { setState } from "./state";
+import { getState, setState } from "./state";
 import { extractState, getUnit, toggleUnit } from "./logic";
 import { renderWeather, showError } from "./dom";
 
@@ -11,7 +11,7 @@ loadWeather("New York", "us");
 /* Logic for searching a Location and updating state */
 const input = document.querySelector("input");
 const submitBtn = document.querySelector("button");
-const toggleUnitBtn = document.querySelector(".toggleUnit");
+const toggleUnitBtn = document.querySelector(".toggleUnitBtn");
 
 submitBtn.addEventListener("click", (e) => {
   let myLocation = input.value;
@@ -20,7 +20,9 @@ submitBtn.addEventListener("click", (e) => {
 });
 
 toggleUnitBtn.addEventListener("click", (e) => {
-  loadWeather();
+  toggleUnit();
+  let location = getState().address;
+  loadWeather(location);
 });
 
 function loadWeather(location) {
@@ -29,7 +31,6 @@ function loadWeather(location) {
   /* call the getWeather function */
   getWeather(location, myUnit)
     .then((data) => {
-      console.log(data);
       console.log(extractState(data));
       setState(extractState(data));
       renderWeather();

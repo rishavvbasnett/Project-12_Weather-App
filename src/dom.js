@@ -1,5 +1,6 @@
 import { getState, setState } from "./state";
 import { fetchResponse } from "./api";
+import { getUnit } from "./logic";
 
 function renderWeather() {
   const weather = getState();
@@ -8,7 +9,7 @@ function renderWeather() {
   const content = document.querySelector(".content");
   content.replaceChildren(
     content.querySelector(".error"),
-    content.querySelector(".toggleUnit"),
+    content.querySelector(".toggleUnitBtn"),
   );
 
   /* The main weather card */
@@ -56,9 +57,9 @@ function renderWeather() {
   const conditions = makeP("weather__conditions");
   conditions.textContent = weather.conditions;
   const temp = makeP("weather__temp");
-  temp.textContent = weather.temp + "°";
+  temp.textContent = weather.temp;
   const feelsLike = makeP("weather__feelsLike");
-  feelsLike.textContent = "Feels like " + weather.feelslike + "°";
+  feelsLike.textContent = "Feels like " + weather.feelslike;
   textBlock.append(conditions, temp, feelsLike);
   mainMeta.append(mainImgDiv, textBlock);
 
@@ -71,7 +72,7 @@ function renderWeather() {
   const tempTitle = makeP("weather__tempTitle");
   const temperature = makeP("weather__temperature");
   tempTitle.textContent = "Teperature";
-  temperature.textContent = weather.temp + "°";
+  temperature.textContent = weather.temp;
 
   const uvTitle = makeP("weather__uvTitle");
   const uv = makeP("weather__uv");
@@ -90,6 +91,17 @@ function renderWeather() {
   infoBottom.append(uvTitle, uv, windSpeedTitle, windSpeed);
 
   /* Logc for unit conversion: Check the unit before adding everything to the DOM */
+  if (getUnit() === "us") {
+    temp.append("°F");
+    temperature.append("°F");
+    feelsLike.append("°F");
+    windSpeed.append(" mph");
+  } else if (getUnit() === "metric") {
+    temp.append("°C");
+    temperature.append("°C");
+    feelsLike.append("°C");
+    windSpeed.append(" km/h");
+  }
 
   /* Add items to the main box */
   main.append(mainMeta, mainDescription);
