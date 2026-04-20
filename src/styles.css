@@ -12,6 +12,10 @@ body {
   min-height: 100vh;
   margin: 0;
   background: var(--gradient);
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  align-items: center;
 }
 
 .content {
@@ -20,6 +24,18 @@ body {
 }
 
 .weather {
-  min-height: 500px;
+  min-width: 300px;
+  min-height: 350px;
   border: 1px solid black;
+}
+
+.weather > div {
+  border: 1px solid black;
+}
+
+.error.hidden {
+  display: none;
+}
+
+.error {
 }

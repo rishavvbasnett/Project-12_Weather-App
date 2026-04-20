@@ -1,15 +1,26 @@
-const apiKey = "KK4V3MCSUD6VQV7VRW69UJABW";
-const baseUrl =
-  "https://weather.visualcrossing.com/VisualCrossingWebServices/rest/services/timeline/";
+async function getWeather(location = "New York") {
+  const apiKey = "Y9WB9BACAZDAR3R93WGUJ23ZP";
+  const baseUrl =
+    "https://weather.visualcrossing.com/VisualCrossingWebServices/rest/services/timeline/";
+  const fullUrl = `${baseUrl}${location}/?key=${apiKey}`;
 
-async function fetchResponse(location = "New York") {
-  try {
-    const fetchUrl = `${baseUrl}${location}/?key=${apiKey}`;
-    const response = await fetch(fetchUrl);
-    return await response.json();
-  } catch (error) {
-    console.error(error);
-  }
+  return fetchResponse(fullUrl);
 }
 
-export { fetchResponse };
+async function fetchResponse(url) {
+  const response = await fetch(url);
+
+  if (!response.ok) {
+    console.log(response);
+    let text = await response.text();
+    if (text.includes(":")) {
+      text = text.split(":")[1].trim();
+    }
+    const err = new Error(`${text || "Request Failed"}`);
+    err.status = response.status;
+    throw err;
+  }
+  const data = await response.json();
+  return data;
+}
+export { fetchResponse, getWeather };

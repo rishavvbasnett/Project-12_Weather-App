@@ -1,4 +1,4 @@
-/* Make a class to make an object with only the data we need */
+/* Object with only the data we need */
 
 let state = {};
 
