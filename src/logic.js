@@ -27,4 +27,18 @@ function extractState(rawJson) {
   };
   return { address, ...obj };
 }
-export { extractState };
+
+let unit = "us";
+
+function getUnit() {
+  return unit;
+}
+
+function toggleUnit() {
+  if (unit === "us") {
+    unit = "metric";
+  } else if (unit === "metric") {
+    unit = "us";
+  }
+}
+export { extractState, toggleUnit, getUnit };

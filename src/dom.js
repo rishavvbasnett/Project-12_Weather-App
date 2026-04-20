@@ -3,11 +3,13 @@ import { fetchResponse } from "./api";
 
 function renderWeather() {
   const weather = getState();
-  console.log(weather);
 
   /* div content */
   const content = document.querySelector(".content");
-  content.replaceChildren(content.querySelector(".error"));
+  content.replaceChildren(
+    content.querySelector(".error"),
+    content.querySelector(".toggleUnit"),
+  );
 
   /* The main weather card */
   const weatherCard = makeDiv("weather");
@@ -19,9 +21,6 @@ function renderWeather() {
   const main = makeDiv("weather__main");
   /* Last box of the weather card */
   const info = makeDiv("weather__info");
-
-  /* Add 3 main boxes in the weather card */
-  weatherCard.append(header, main, info);
 
   /* Add elements to the Header box */
   const address = makeDiv("weather__address");
@@ -41,7 +40,6 @@ function renderWeather() {
   const mainMeta = makeDiv("weather__mainMeta");
   const mainDescription = makeDiv("weather__description");
   mainDescription.textContent = weather.description;
-  main.append(mainMeta, mainDescription);
 
   /* Add elements to the top part of the main box */
   const mainImgDiv = makeDiv("weather__mainImgDiv");
@@ -91,7 +89,14 @@ function renderWeather() {
   const infoBottom = makeDiv("weather__infoBottom");
   infoBottom.append(uvTitle, uv, windSpeedTitle, windSpeed);
 
+  /* Logc for unit conversion: Check the unit before adding everything to the DOM */
+
+  /* Add items to the main box */
+  main.append(mainMeta, mainDescription);
+  /* Add items to the info box */
   info.append(infoTop, infoBottom);
+  /* Add 3 main boxes in the weather card */
+  weatherCard.append(header, main, info);
 }
 
 function makeDiv(classname) {

@@ -2,29 +2,39 @@ import "./reset.css";
 import "./styles.css";
 import { getWeather } from "./api";
 import { setState } from "./state";
-import { extractState } from "./logic";
+import { extractState, getUnit, toggleUnit } from "./logic";
 import { renderWeather, showError } from "./dom";
 
 /* Load the weather card for New York as a default when the app starts */
-getWeather().then((data) => {
-  setState(extractState(data));
-  renderWeather();
-});
+loadWeather("New York", "us");
 
 /* Logic for searching a Location and updating state */
 const input = document.querySelector("input");
 const submitBtn = document.querySelector("button");
+const toggleUnitBtn = document.querySelector(".toggleUnit");
 
 submitBtn.addEventListener("click", (e) => {
   let myLocation = input.value;
-  getWeather(myLocation)
+  loadWeather(myLocation);
+  input.value = "";
+});
+
+toggleUnitBtn.addEventListener("click", (e) => {
+  loadWeather();
+});
+
+function loadWeather(location) {
+  /* Check the unit */
+  let myUnit = getUnit();
+  /* call the getWeather function */
+  getWeather(location, myUnit)
     .then((data) => {
+      console.log(data);
+      console.log(extractState(data));
       setState(extractState(data));
       renderWeather();
     })
     .catch((err) => {
-      console.log("ERRRR");
       showError(err.message);
     });
-  input.value = "";
-});
+}
