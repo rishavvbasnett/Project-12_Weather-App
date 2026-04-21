@@ -3,14 +3,30 @@ import { fetchResponse } from "./api";
 import { getUnit } from "./logic";
 
 function renderWeather() {
-  const weather = getState();
+  // let weather = getState();
+  let weather = {
+    address: "Los Angeles, US",
+    datetime: "2026-04-20",
+
+    conditions: "Clear",
+    description: "Clear conditions throughout the day.",
+
+    temp: 72,
+    feelslike: 73,
+    humidity: 40,
+
+    windspeed: 6,
+    uvindex: 7,
+  };
+  console.log(weather);
 
   /* div content */
   const content = document.querySelector(".content");
-  content.replaceChildren(
-    content.querySelector(".error"),
-    content.querySelector(".toggleUnitBtn"),
-  );
+  const ErrorDiv = document.querySelector(".error");
+
+  ErrorDiv.textContent = "";
+  content.replaceChildren();
+  content.append(ErrorDiv);
 
   /* The main weather card */
   const weatherCard = makeDiv("weather");
@@ -63,41 +79,43 @@ function renderWeather() {
   textBlock.append(conditions, temp, feelsLike);
   mainMeta.append(mainImgDiv, textBlock);
 
-  /* Last box with other info/ info section */
-  const humidityTitle = makeP("weather__humidityTitle");
+  /* Last box with info section */
+  const humidityTitle = makeP("weather__label");
+  humidityTitle.classList.add("weather__label--humidity");
   const humidity = makeP("weather__humidity");
   humidityTitle.textContent = "Humidity";
-  humidity.textContent = weather.humidity;
+  humidity.textContent = weather.humidity + "%";
 
-  const tempTitle = makeP("weather__tempTitle");
+  const tempTitle = makeP("weather__label");
+  tempTitle.classList.add("weather__label--temp");
   const temperature = makeP("weather__temperature");
-  tempTitle.textContent = "Teperature";
+  tempTitle.textContent = "Temperature";
   temperature.textContent = weather.temp;
 
-  const uvTitle = makeP("weather__uvTitle");
+  const uvTitle = makeP("weather__label");
+  uvTitle.classList.add("weather__label--uv");
   const uv = makeP("weather__uv");
   uvTitle.textContent = "UV Index";
   uv.textContent = weather.uvindex;
 
-  const windSpeedTitle = makeP("weather__windSpeedTitle");
+  const windSpeedTitle = makeP("weather__label");
+  windSpeedTitle.classList.add("weather__label--windSpeed");
   const windSpeed = makeP("weather__windSpeed");
   windSpeedTitle.textContent = "Wind Speed";
   windSpeed.textContent = weather.windspeed;
 
   const infoTop = makeDiv("weather__infoTop");
-  infoTop.append(humidityTitle, humidity, tempTitle, temperature);
+  infoTop.append(humidityTitle, humidity, uvTitle, uv);
 
   const infoBottom = makeDiv("weather__infoBottom");
-  infoBottom.append(uvTitle, uv, windSpeedTitle, windSpeed);
+  infoBottom.append(tempTitle, temperature, windSpeedTitle, windSpeed);
 
   /* Logc for unit conversion: Check the unit before adding everything to the DOM */
   if (getUnit() === "us") {
-    temp.append("°F");
     temperature.append("°F");
     feelsLike.append("°F");
     windSpeed.append(" mph");
   } else if (getUnit() === "metric") {
-    temp.append("°C");
     temperature.append("°C");
     feelsLike.append("°C");
     windSpeed.append(" km/h");
@@ -125,12 +143,13 @@ function makeP(classname) {
 
 function showError(errorMessage) {
   const error = document.querySelector(".error");
-  error.textContent = errorMessage;
+  console.log(errorMessage);
+  error.textContent = errorMessage || "";
   error.classList.remove("hidden");
   setTimeout(() => {
     error.classList.add("hidden");
     error.textContent = "";
-  }, 4000);
+  }, 3000);
 }
 
 export { renderWeather, showError };

@@ -1,7 +1,9 @@
 /* FUNCTION 1:
  To process the raw object into state with only required field */
 function extractState(rawJson) {
-  let address = rawJson.address;
+  console.log(rawJson);
+  let address = rawJson.resolvedAddress;
+  console.log(address);
   const current = rawJson.days[0];
   const {
     datetime,

@@ -6,7 +6,8 @@ import { extractState, getUnit, toggleUnit } from "./logic";
 import { renderWeather, showError } from "./dom";
 
 /* Load the weather card for New York as a default when the app starts */
-loadWeather("New York", "us");
+// loadWeather("New York", "us");
+renderWeather();
 
 /* Logic for searching a Location and updating state */
 const input = document.querySelector("input");
